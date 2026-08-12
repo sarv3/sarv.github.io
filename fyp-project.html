@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chest X-Ray AI | Sarvesh Ram</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#0a0a0f',
+                        'bg-card': '#14141f',
+                        'bg-card-hover': '#1a1a2e',
+                        'accent-cyan': '#00d4ff',
+                        'accent-purple': '#7b61ff',
+                        'accent-teal': '#00f0b5',
+                        'text-primary': '#e2e8f0',
+                        'text-secondary': '#a0aec0',
+                        'border-subtle': '#1e2a3a',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- External CSS (same as main portfolio) -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Additional styles specific to project page */
+        .hero-bg-img {
+            background: linear-gradient(to bottom, rgba(10, 10, 15, 0.85), rgba(10, 10, 15, 0.95)),
+                url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            border: 2px solid transparent;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--accent-cyan, #00d4ff);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            transform: scale(0.9);
+            transition: transform 0.35s ease;
+        }
+
+        .lightbox-overlay.active img {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: rotate(90deg);
+        }
+
+        /* back button */
+        .back-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .back-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan, #00d4ff);
+            transition: width 0.3s ease;
+        }
+
+        .back-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0a0a0f] text-[#e2e8f0]">
+
+    <!-- ==================== NAVIGATION (Simplified) ==================== -->
+    <nav class="nav-glass fixed top-0 left-0 w-full z-50 px-4 md:px-8 py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold tracking-tight flex items-center gap-2">
+                <span class="text-accent-cyan font-mono">&lt;</span>
+                <span class="text-white">Sarvesh</span>
+                <span class="text-accent-purple font-mono">/&gt;</span>
+            </a>
+            <a href="index.html"
+                class="back-link text-text-secondary hover:text-white text-sm font-medium flex items-center gap-1 transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero-bg-img min-h-[60vh] flex items-center justify-center pt-20 pb-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-accent-cyan font-mono text-sm tracking-widest uppercase">Final Year Project</span>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4 mb-6 leading-tight">
+                Chest X-Ray Disease Classification
+            </h1>
+            <p class="text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-8">
+                A deep learning web application that classifies compressed chest X-ray images into four categories:
+                COVID-19, Normal, Viral Pneumonia, and Lung Opacity.
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <span class="skill-tag tech">Deep Learning</span>
+                <span class="skill-tag tech">Computer Vision</span>
+                <span class="skill-tag tech">Python</span>
+                <span class="skill-tag tech">TensorFlow / PyTorch</span>
+                <span class="skill-tag cert">Web App (Flask)</span>
+                <span class="skill-tag soft">Medical AI</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROJECT DETAILS ==================== -->
+    <section class="py-16 md:py-24 px-4 max-w-5xl mx-auto">
+        <!-- Overview -->
+        <div class="reveal mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <span class="w-8 h-1 bg-accent-cyan rounded"></span> Overview
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-text-secondary leading-relaxed">
+                        This project leverages deep convolutional neural networks to analyze chest X-ray images and
+                        provide rapid, accurate classification of pulmonary diseases. The goal is to assist healthcare
+                        professionals in triaging patients and improving diagnostic efficiency, especially in
+                        resource-limited settings.
+                    </p>
+                    <p class="text-text-secondary leading-relaxed mt-4">
+                        I developed the full pipeline: from data preprocessing and augmentation to model training,
+                        evaluation, and deployment as an interactive web application using Flask. The model was trained
+                        on a publicly available dataset of over 20,000 chest X-ray images.
+                    </p>
+                </div>
+                <div class="bg-bg-card border border-border-subtle rounded-xl p-6">
+                    <h3 class="text-white font-semibold mb-4">🎯 Objectives</h3>
+                    <ul class="space-y-3 text-text-secondary text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent-cyan mt-1">▹</span> Build a multi-class classifier with high
+                            accuracy (>92%).
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent-cyan mt-1">▹</span> Implement real-time image preprocessing for
+                            compressed X-rays.
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent-cyan mt-1">▹</span> Deploy a user-friendly web interface for
+                            clinicians.
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-accent-cyan mt-1">▹</span> Ensure model interpretability with Grad-CAM
+                            visualizations.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="reveal mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <span class="w-8 h-1 bg-accent-teal rounded"></span> Key Features
+            </h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div
+                    class="bg-bg-card border border-border-subtle rounded-xl p-6 hover:border-accent-cyan transition-all duration-300">
+                    <div class="text-accent-cyan text-2xl mb-3">🧠</div>
+                    <h3 class="text-white font-semibold mb-2">Advanced CNN Architecture</h3>
+                    <p class="text-text-secondary text-sm">Custom ResNet-50 variant optimized for medical imaging with
+                        fine-tuned layers.</p>
+                </div>
+                <div
+                    class="bg-bg-card border border-border-subtle rounded-xl p-6 hover:border-accent-cyan transition-all duration-300">
+                    <div class="text-accent-teal text-2xl mb-3">⚡</div>
+                    <h3 class="text-white font-semibold mb-2">Real-time Inference</h3>
+                    <p class="text-text-secondary text-sm">Processes uploaded images in under 2 seconds with confidence
+                        scores.</p>
+                </div>
+                <div
+                    class="bg-bg-card border border-border-subtle rounded-xl p-6 hover:border-accent-cyan transition-all duration-300">
+                    <div class="text-accent-purple text-2xl mb-3">🔍</div>
+                    <h3 class="text-white font-semibold mb-2">Explainable AI</h3>
+                    <p class="text-text-secondary text-sm">Integrated Grad-CAM heatmaps to highlight regions influencing
+                        the prediction.</p>
+                </div>
+                <div
+                    class="bg-bg-card border border-border-subtle rounded-xl p-6 hover:border-accent-cyan transition-all duration-300">
+                    <div class="text-accent-cyan text-2xl mb-3">📊</div>
+                    <h3 class="text-white font-semibold mb-2">Comprehensive Metrics</h3>
+                    <p class="text-text-secondary text-sm">Displays accuracy, precision, recall, and F1-score per class
+                        after evaluation.</p>
+                </div>
+                <div
+                    class="bg-bg-card border border-border-subtle rounded-xl p-6 hover:border-accent-cyan transition-all duration-300">
+                    <div class="text-accent-teal text-2xl mb-3">📱</div>
+                    <h3 class="text-white font-semibold mb-2">Responsive Web App</h3>
+                    <p class="text-text-secondary text-sm">Flask + Bootstrap frontend that works seamlessly on desktop
+                        and tablets.</p>
+                </div>
+                <div
+                    class="bg-bg-card border border-border-subtle rounded-xl p-6 hover:border-accent-cyan transition-all duration-300">
+                    <div class="text-accent-purple text-2xl mb-3">📁</div>
+                    <h3 class="text-white font-semibold mb-2">Batch Processing</h3>
+                    <p class="text-text-secondary text-sm">Supports uploading multiple X-rays at once for bulk
+                        diagnosis.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Development Process (Timeline) -->
+        <div class="reveal mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <span class="w-8 h-1 bg-accent-purple rounded"></span> Development Process
+            </h2>
+            <div class="space-y-0">
+                <div class="timeline-item pb-6 ml-2">
+                    <h4 class="text-white font-bold">Data Collection & Preprocessing</h4>
+                    <p class="text-text-secondary text-sm">Combined multiple public datasets (COVID-19 Radiography
+                        Database). Applied histogram equalization, resizing, and normalization.</p>
+                </div>
+                <div class="timeline-item pb-6 ml-2">
+                    <h4 class="text-white font-bold">Model Architecture Design</h4>
+                    <p class="text-text-secondary text-sm">Experimented with VGG16, ResNet50, and DenseNet121. Selected
+                        ResNet50 with custom classification head.</p>
+                </div>
+                <div class="timeline-item pb-6 ml-2">
+                    <h4 class="text-white font-bold">Training & Evaluation</h4>
+                    <p class="text-text-secondary text-sm">Trained on 80% of data, validated on 10%, tested on 10%.
+                        Achieved 94% test accuracy with weighted F1-score.</p>
+                </div>
+                <div class="timeline-item pb-6 ml-2">
+                    <h4 class="text-white font-bold">Web Application Development</h4>
+                    <p class="text-text-secondary text-sm">Built a Flask API backend with an intuitive UI. Integrated
+                        model inference pipeline and result visualization.</p>
+                </div>
+                <div class="timeline-item pb-6 ml-2">
+                    <h4 class="text-white font-bold">Deployment & Testing</h4>
+                    <p class="text-text-secondary text-sm">Containerized with Docker for reproducibility. Conducted user
+                        acceptance testing with medical students.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="reveal mb-16">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                <span class="w-8 h-1 bg-accent-cyan rounded"></span> Visual Gallery
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="gallery-item"
+                    data-lightbox="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=300&h=200&fit=crop"
+                        alt="Web app interface" class="w-full h-40 object-cover">
+                </div>
+                <div class="gallery-item"
+                    data-lightbox="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&q=80">
+                    <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=300&h=200&fit=crop"
+                        alt="Grad-CAM visualization" class="w-full h-40 object-cover">
+                </div>
+                <div class="gallery-item"
+                    data-lightbox="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?w=600&q=80">
+                    <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?w=300&h=200&fit=crop"
+                        alt="Model training graphs" class="w-full h-40 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== LIGHTBOX ==================== -->
+    <div id="lightbox" class="lightbox-overlay">
+        <button id="lightbox-close" class="lightbox-close">&times;</button>
+        <img id="lightbox-img" src="" alt="Enlarged view" />
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="py-10 border-t border-border-subtle text-center">
+        <p class="text-text-secondary text-sm">&copy; 2025 Sarvesh Ram. All rights reserved.</p>
+        <a href="index.html" class="text-accent-cyan text-sm hover:underline mt-2 inline-block">← Return to Main
+            Portfolio</a>
+    </footer>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        (function () {
+            // Lightbox
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxClose = document.getElementById('lightbox-close');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const src = item.getAttribute('data-lightbox');
+                    lightboxImg.src = src;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            lightboxClose.addEventListener('click', () => {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                lightboxImg.src = '';
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                    lightboxImg.src = '';
+                }
+            });
+
+            // Scroll reveal
+            const revealEls = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealEls.forEach(el => observer.observe(el));
+        })();
+    </script>
+</body>
+
+</html>

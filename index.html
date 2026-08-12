@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarvesh Ram | AI Portfolio</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#0a0a0f',
+                        'bg-card': '#14141f',
+                        'bg-card-hover': '#1a1a2e',
+                        'accent-cyan': '#00d4ff',
+                        'accent-purple': '#7b61ff',
+                        'accent-teal': '#00f0b5',
+                        'text-primary': '#e2e8f0',
+                        'text-secondary': '#a0aec0',
+                        'border-subtle': '#1e2a3a',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(0,212,255,0.15)' },
+                            '50%': { boxShadow: '0 0 40px rgba(0,212,255,0.35)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-[#0a0a0f] text-[#e2e8f0]">
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav id="navbar" class="nav-glass fixed top-0 left-0 w-full z-50 px-4 md:px-8 py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#hero" class="text-xl font-bold tracking-tight flex items-center gap-2">
+                <span class="text-accent-cyan font-mono">&lt;</span>
+                <span class="text-white">Sarvesh</span>
+                <span class="text-accent-purple font-mono">/&gt;</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#about" class="nav-link text-text-secondary hover:text-white transition-colors">About</a>
+                <a href="#skills" class="nav-link text-text-secondary hover:text-white transition-colors">Skills</a>
+                <a href="#projects" class="nav-link text-text-secondary hover:text-white transition-colors">Projects</a>
+                <a href="#multimedia"
+                    class="nav-link text-text-secondary hover:text-white transition-colors">Creative</a>
+                <a href="#experience"
+                    class="nav-link text-text-secondary hover:text-white transition-colors">Experience</a>
+                <a href="#contact" class="nav-link text-text-secondary hover:text-white transition-colors">Contact</a>
+                <a href="resume.pdf" download
+                    class="ml-2 px-4 py-2 rounded-full border border-accent-cyan text-accent-cyan text-sm font-semibold hover:bg-accent-cyan hover:text-[#0a0a0f] transition-all duration-300">
+                    Resume ↓
+                </a>
+            </div>
+
+            <button id="hamburger-btn" class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6" class="transition-all duration-300 origin-center" id="line-top">
+                    </line>
+                    <line x1="3" y1="12" x2="21" y2="12" class="transition-all duration-300" id="line-mid"></line>
+                    <line x1="3" y1="18" x2="21" y2="18" class="transition-all duration-300 origin-center"
+                        id="line-bot"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden bg-[#0a0a0f]/95 backdrop-blur-xl border-b border-border-subtle px-4">
+            <div class="flex flex-col gap-3 py-2 text-sm font-medium">
+                <a href="#about"
+                    class="mobile-nav-link text-text-secondary hover:text-white py-2 transition-colors">About</a>
+                <a href="#skills"
+                    class="mobile-nav-link text-text-secondary hover:text-white py-2 transition-colors">Skills</a>
+                <a href="#projects"
+                    class="mobile-nav-link text-text-secondary hover:text-white py-2 transition-colors">Projects</a>
+                <a href="#multimedia"
+                    class="mobile-nav-link text-text-secondary hover:text-white py-2 transition-colors">Creative</a>
+                <a href="#experience"
+                    class="mobile-nav-link text-text-secondary hover:text-white py-2 transition-colors">Experience</a>
+                <a href="#contact"
+                    class="mobile-nav-link text-text-secondary hover:text-white py-2 transition-colors">Contact</a>
+                <a href="resume.pdf" download
+                    class="inline-block text-center px-4 py-2 rounded-full border border-accent-cyan text-accent-cyan font-semibold hover:bg-accent-cyan hover:text-[#0a0a0f] transition-all duration-300">
+                    Download Resume
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        <canvas id="particle-canvas"></canvas>
+        <div class="hero-glow glow-cyan"></div>
+        <div class="hero-glow glow-purple"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <p
+                class="text-accent-cyan font-mono text-sm md:text-base tracking-widest uppercase mb-4 animate-fade-in-up">
+                AI Undergraduate • Builder • Innovator
+            </p>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 animate-fade-in-up"
+                style="animation-delay: 0.15s;">
+                <span class="text-white">Code. Data. Intelligence.</span><br>
+                <span
+                    class="bg-gradient-to-r from-accent-cyan via-accent-teal to-accent-purple bg-clip-text text-transparent">
+                    Bringing AI to Life.
+                </span>
+            </h1>
+            <p class="text-text-secondary text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-10 animate-fade-in-up"
+                style="animation-delay: 0.3s;">
+                Honours Computer Science (Artificial Intelligence) student skilled in
+                <span class="text-white font-semibold">Python</span>,
+                <span class="text-white font-semibold">Machine Learning</span>, and
+                <span class="text-white font-semibold">Data Analytics</span>.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up"
+                style="animation-delay: 0.45s;">
+                <a href="#projects"
+                    class="cta-primary inline-block px-8 py-3.5 rounded-full bg-accent-cyan text-[#0a0a0f] font-bold text-base tracking-wide hover:bg-white transition-all duration-300 shadow-lg shadow-accent-cyan/25">
+                    View Projects
+                </a>
+                <a href="resume.pdf" download
+                    class="inline-block px-8 py-3.5 rounded-full border-2 border-white/30 text-white font-semibold text-base tracking-wide hover:border-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+                    Download Resume
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-float">
+            <div class="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-1.5">
+                <div class="w-1.5 h-3 bg-accent-cyan rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ME SECTION (EXACT RESUME DETAILS) ==================== -->
+    <section id="about" class="py-20 md:py-28 px-4 max-w-6xl mx-auto">
+        <div class="reveal">
+            <p class="text-accent-cyan font-mono text-sm tracking-widest uppercase mb-2">About Me</p>
+            <div class="section-divider"></div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">The Builder Behind the Code</h2>
+        </div>
+        <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-center reveal">
+            <div class="flex-shrink-0">
+                <div
+                    class="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden border-2 border-border-subtle bg-bg-card flex items-center justify-center shadow-2xl">
+                    <img src="WhatsApp Image 2025-05-04 at 16.02.33_d9c41834.jpg"
+                        alt="Sarvesh Ram headshot" class="w-full h-full object-cover" loading="lazy">
+                </div>
+            </div>
+            <div class="flex-1">
+                <p class="text-text-secondary leading-relaxed text-base md:text-lg mb-5">
+                    Currently studying <span class="text-white font-semibold">Bachelor of Computer Science (Artificial
+                        Intelligence)</span>
+                    at <span class="text-white">Universiti Teknikal Malaysia Melaka (UTeM)</span> with a
+                    <span class="text-accent-teal font-bold">3.29 CGPA</span> and <span class="text-accent-cyan">Dean's
+                        List</span> honours.
+                </p>
+                <p class="text-text-secondary leading-relaxed text-base md:text-lg mb-5">
+                    Previously completed a <span class="text-white">Diploma in Digital Technology</span> at
+                    Politeknik Ungku Omar with a
+                    <span class="text-accent-teal font-bold">3.85 CGPA</span> (Dean's List for
+                    <span class="text-accent-cyan font-semibold">7 semesters</span>).
+                </p>
+                <p class="text-text-secondary leading-relaxed text-base md:text-lg">
+                    Seeking an AI internship to contribute to model development, data analysis, and intelligent system
+                    implementation while strengthening technical skills.
+                </p>
+                <div class="flex flex-wrap gap-4 mt-6">
+                    <div class="bg-bg-card border border-border-subtle rounded-xl px-5 py-3 text-center">
+                        <span class="block text-2xl font-bold text-accent-teal">3.29</span>
+                        <span class="text-xs text-text-secondary">Current CGPA</span>
+                    </div>
+                    <div class="bg-bg-card border border-border-subtle rounded-xl px-5 py-3 text-center">
+                        <span class="block text-2xl font-bold text-accent-cyan">3.85</span>
+                        <span class="text-xs text-text-secondary">Diploma CGPA</span>
+                    </div>
+                    <div class="bg-bg-card border border-border-subtle rounded-xl px-5 py-3 text-center">
+                        <span class="block text-2xl font-bold text-accent-purple">7×</span>
+                        <span class="text-xs text-text-secondary">Dean's List</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SKILLS & CERTIFICATIONS (EXACT RESUME DETAILS) ==================== -->
+    <section id="skills" class="py-20 md:py-28 px-4 max-w-6xl mx-auto">
+        <div class="reveal">
+            <p class="text-accent-cyan font-mono text-sm tracking-widest uppercase mb-2">Core Competencies</p>
+            <div class="section-divider"></div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">Skills & Certifications</h2>
+        </div>
+
+        <div class="reveal mb-10">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-accent-cyan inline-block"></span> Technical Skills
+            </h3>
+            <div class="flex flex-wrap gap-3">
+                <span class="skill-tag tech">Python</span>
+                <span class="skill-tag tech">C++</span>
+                <span class="skill-tag tech">SQL</span>
+                <span class="skill-tag tech">Machine Learning</span>
+                <span class="skill-tag tech">Computer Vision</span>
+                <span class="skill-tag tech">Data Preprocessing</span>
+                <span class="skill-tag tech">Model Training &amp; Evaluation</span>
+            </div>
+        </div>
+
+        <div class="reveal mb-10">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-accent-teal inline-block"></span> Certifications
+            </h3>
+            <div class="flex flex-wrap gap-3">
+                <span class="skill-tag cert">🏅 Google Data Analytics Professional Certificate</span>
+                <span class="skill-tag cert">🗄️ Oracle Certified Foundations Associate (Database)</span>
+            </div>
+        </div>
+
+        <div class="reveal">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-accent-purple inline-block"></span> Soft Skills
+            </h3>
+            <div class="flex flex-wrap gap-3">
+                <span class="skill-tag soft">Team Collaboration</span>
+                <span class="skill-tag soft">Leadership</span>
+                <span class="skill-tag soft">Communication</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURED PROJECTS (EXACT RESUME DETAILS) ==================== -->
+    <section id="projects" class="py-20 md:py-28 px-4 max-w-6xl mx-auto">
+        <div class="reveal">
+            <p class="text-accent-cyan font-mono text-sm tracking-widest uppercase mb-2">Featured Work</p>
+            <div class="section-divider"></div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">Featured Projects</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Project 1: Chest X-Ray (FYP) -->
+            <div class="project-card reveal" id="fyp-card">
+                <div class="card-img-wrapper h-52 bg-bg-card">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=300&fit=crop&auto=format&q=80"
+                        alt="Chest X-Ray AI classification" class="w-full h-full object-cover" loading="lazy">
+                    <div class="card-overlay">
+                        <span class="text-white text-sm font-mono bg-accent-cyan/20 px-3 py-1 rounded-full">Final Year
+                            Project</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-2">Chest X-Ray Disease Classification</h3>
+                    <p class="text-text-secondary text-sm leading-relaxed mb-4">
+                        Developing a deep learning web application to classify compressed chest X-ray images into
+                        COVID-19, Normal, Viral Pneumonia, and Lung Opacity categories.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs bg-accent-cyan/10 text-accent-cyan px-3 py-1 rounded-full">Deep
+                            Learning</span>
+                        <span class="text-xs bg-accent-cyan/10 text-accent-cyan px-3 py-1 rounded-full">Computer
+                            Vision</span>
+                        <span class="text-xs bg-accent-cyan/10 text-accent-cyan px-3 py-1 rounded-full">Web App</span>
+                    </div>
+                    <button id="btn-fyp-detail"
+                        class="mt-2 px-4 py-2 rounded-full border border-accent-cyan text-accent-cyan text-sm font-semibold hover:bg-accent-cyan hover:text-[#0a0a0f] transition-all duration-300">
+                        View Details →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project 2: FAIX AI Chatbot -->
+            <div class="project-card reveal">
+                <div class="card-img-wrapper h-52 bg-bg-card">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop&auto=format&q=80"
+                        alt="FAIX AI Chatbot" class="w-full h-full object-cover" loading="lazy">
+                    <div class="card-overlay">
+                        <span class="text-white text-sm font-mono bg-accent-purple/20 px-3 py-1 rounded-full">Workshop 2
+                            Project</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-2">FAIX AI Chatbot</h3>
+                    <p class="text-text-secondary text-sm leading-relaxed mb-4">
+                        Led a 3-person team to develop a faculty AI chatbot. Handled system design, documentation,
+                        project planning, and task delegation based on team strengths.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs bg-accent-purple/10 text-accent-purple px-3 py-1 rounded-full">NLP</span>
+                        <span class="text-xs bg-accent-purple/10 text-accent-purple px-3 py-1 rounded-full">System
+                            Design</span>
+                        <span class="text-xs bg-accent-purple/10 text-accent-purple px-3 py-1 rounded-full">Team
+                            Leadership</span>
+                    </div>
+                    <a href="https://github.com/shanle1117/workshop2" target="_blank" rel="noopener noreferrer"
+                        class="mt-2 inline-block px-4 py-2 rounded-full border border-accent-cyan text-accent-cyan text-sm font-semibold hover:bg-accent-cyan hover:text-[#0a0a0f] transition-all duration-300">
+                        GitHub Repo →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== FYP DETAIL SECTION (EXACT RESUME WORDING) ==================== -->
+        <div id="fyp-detail"
+            class="mt-12 p-6 md:p-10 bg-bg-card border border-border-subtle rounded-2xl hidden opacity-0 transition-all duration-500 ease-in-out transform translate-y-4">
+            <div class="flex justify-between items-start mb-6">
+                <h3 class="text-2xl md:text-3xl font-bold text-white">Chest X‑Ray Disease Classification</h3>
+                <button id="close-fyp-detail"
+                    class="text-text-secondary hover:text-white transition-colors text-2xl leading-none">&times;</button>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+                <span
+                    class="px-3 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan text-xs font-medium">Python</span>
+                <span class="px-3 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan text-xs font-medium">TensorFlow /
+                    Keras</span>
+                <span class="px-3 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan text-xs font-medium">Flask</span>
+                <span
+                    class="px-3 py-1 rounded-full bg-accent-cyan/10 text-accent-cyan text-xs font-medium">OpenCV</span>
+                <span
+                    class="px-3 py-1 rounded-full bg-accent-purple/10 text-accent-purple text-xs font-medium">DenseNet121</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h4 class="text-lg font-semibold text-accent-cyan mb-2">🎯 Problem Statement</h4>
+                    <p class="text-text-secondary text-sm leading-relaxed">
+                        Developing a deep learning web application to classify compressed chest X-ray images into four
+                        categories: COVID-19, Normal, Viral Pneumonia, and Lung Opacity. The project focuses on building
+                        an end-to-end pipeline from data preprocessing to model deployment, highlighting practical
+                        skills in computer vision and medical AI.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-accent-cyan mb-2">🧠 Methodology</h4>
+                    <ul class="text-text-secondary text-sm space-y-2 list-disc list-inside">
+                        <li>Preprocessed and augmented a dataset of compressed chest X‑ray images.</li>
+                        <li>Fine‑tuned a pre‑trained DenseNet121 convolutional neural network.</li>
+                        <li>Achieved high validation accuracy through hyperparameter tuning.</li>
+                        <li>Deployed via a Flask web app with real‑time image classification.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4 class="text-lg font-semibold text-accent-cyan mb-4">🖼️ Screenshots & Workflow</h4>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                <div class="gallery-thumb"
+                    data-lightbox="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=600&h=400&fit=crop&auto=format&q=80">
+                    <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=400&h=300&fit=crop&auto=format&q=80"
+                        alt="Model architecture" class="w-full h-32 object-cover rounded-lg">
+                    <div class="text-xs text-text-secondary mt-1">Model Architecture</div>
+                </div>
+                <div class="gallery-thumb"
+                    data-lightbox="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&h=400&fit=crop&auto=format&q=80">
+                    <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=400&h=300&fit=crop&auto=format&q=80"
+                        alt="Web interface" class="w-full h-32 object-cover rounded-lg">
+                    <div class="text-xs text-text-secondary mt-1">Web App Interface</div>
+                </div>
+                <div class="gallery-thumb"
+                    data-lightbox="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&h=400&fit=crop&auto=format&q=80">
+                    <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&h=300&fit=crop&auto=format&q=80"
+                        alt="Performance metrics" class="w-full h-32 object-cover rounded-lg">
+                    <div class="text-xs text-text-secondary mt-1">Performance Metrics</div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-4">
+                <a href="#"
+                    class="px-5 py-2 rounded-full bg-accent-cyan text-[#0a0a0f] font-semibold text-sm hover:bg-white transition-colors flex items-center gap-2">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    GitHub Repo
+                </a>
+                <a href="#"
+                    class="px-5 py-2 rounded-full border border-accent-cyan text-accent-cyan font-semibold text-sm hover:bg-accent-cyan hover:text-[#0a0a0f] transition-colors flex items-center gap-2">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Live Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MULTIMEDIA & CREATIVE DESIGN (RESUME ALIGNED) ==================== -->
+    <section id="multimedia" class="py-20 md:py-28 px-4 max-w-6xl mx-auto">
+        <div class="reveal">
+            <p class="text-accent-cyan font-mono text-sm tracking-widest uppercase mb-2">Creative Portfolio</p>
+            <div class="section-divider"></div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Multimedia & Creative Design</h2>
+            <p class="text-text-secondary text-base md:text-lg max-w-2xl mb-12">
+                Showcasing versatility in digital design, video editing, and creative content creation alongside
+                technical skills.
+            </p>
+        </div>
+
+        <div class="reveal flex flex-wrap gap-3 mb-10">
+            <span
+                class="px-4 py-2 rounded-full bg-bg-card border border-border-subtle text-sm font-medium text-text-primary hover:border-accent-cyan transition-colors cursor-default">🎬
+                Video Editing</span>
+            <span
+                class="px-4 py-2 rounded-full bg-bg-card border border-border-subtle text-sm font-medium text-text-primary hover:border-accent-cyan transition-colors cursor-default">📸
+                Photo Editing</span>
+            <span
+                class="px-4 py-2 rounded-full bg-bg-card border border-border-subtle text-sm font-medium text-text-primary hover:border-accent-cyan transition-colors cursor-default">🖼️
+                Poster Design</span>
+            <span
+                class="px-4 py-2 rounded-full bg-bg-card border border-border-subtle text-sm font-medium text-text-primary hover:border-accent-cyan transition-colors cursor-default">📊
+                Presentation Design</span>
+            <span
+                class="px-4 py-2 rounded-full bg-bg-card border border-border-subtle text-sm font-medium text-text-primary hover:border-accent-cyan transition-colors cursor-default">👕
+                Merchandise Design</span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+            <div class="gallery-thumb reveal"
+                data-lightbox="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&h=600&fit=crop&auto=format&q=80">
+                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=400&fit=crop&auto=format&q=80"
+                    alt="UTeM AI Club merchandise" class="w-full h-40 md:h-48 object-cover" loading="lazy">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                    <span class="text-xs text-white font-medium">UTeM AI Club – Merch Poster</span>
+                </div>
+            </div>
+            <div class="gallery-thumb reveal"
+                data-lightbox="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=600&fit=crop&auto=format&q=80">
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop&auto=format&q=80"
+                    alt="Promo poster" class="w-full h-40 md:h-48 object-cover" loading="lazy">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                    <span class="text-xs text-white font-medium">UTeM AI Club – Promo Poster</span>
+                </div>
+            </div>
+            <div class="gallery-thumb reveal"
+                data-lightbox="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=600&fit=crop&auto=format&q=80">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=400&fit=crop&auto=format&q=80"
+                    alt="Merchandise" class="w-full h-40 md:h-48 object-cover" loading="lazy">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                    <span class="text-xs text-white font-medium">UTeM AI Club – Merchandise</span>
+                </div>
+            </div>
+            <div class="gallery-thumb reveal relative" data-lightbox="video" data-video-placeholder="true">
+                <img src="https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=400&h=400&fit=crop&auto=format&q=80"
+                    alt="Video content" class="w-full h-40 md:h-48 object-cover" loading="lazy">
+                <div class="play-overlay">
+                    <div class="play-triangle"></div>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                    <span class="text-xs text-white font-medium">Asia Retail Academy – Video</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+            <div class="reveal bg-bg-card border border-border-subtle rounded-xl p-6">
+                <h4 class="text-white font-semibold mb-2">UTeM Artificial Intelligence Club</h4>
+                <p class="text-text-secondary text-sm leading-relaxed">Designed official merchandise, promotional
+                    posters, and PowerPoint backgrounds to drive engagement for industry-collaborated events.</p>
+            </div>
+            <div class="reveal bg-bg-card border border-border-subtle rounded-xl p-6">
+                <h4 class="text-white font-semibold mb-2">Asia Retail Academy</h4>
+                <p class="text-text-secondary text-sm leading-relaxed">Produced creative content, including edited
+                    videos and marketing materials, to support company initiatives.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== EXPERIENCE & INDUSTRY ENGAGEMENT (EXACT RESUME WORDING) ==================== -->
+    <section id="experience" class="py-20 md:py-28 px-4 max-w-6xl mx-auto">
+        <div class="reveal">
+            <p class="text-accent-cyan font-mono text-sm tracking-widest uppercase mb-2">Career Journey</p>
+            <div class="section-divider"></div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">Experience & Industry Engagement</h2>
+        </div>
+
+        <div class="space-y-1">
+            <div class="reveal mb-8">
+                <h3 class="text-lg font-semibold text-accent-cyan mb-5 flex items-center gap-2">💼 Professional
+                    Experience</h3>
+                <div class="timeline-item pb-6 ml-2">
+                    <h4 class="text-white font-bold text-lg">Information Technology Intern</h4>
+                    <p class="text-accent-purple text-sm font-medium mb-2">Asia Retail Academy</p>
+                    <ul class="text-text-secondary text-sm space-y-1.5 list-disc list-inside">
+                        <li>Provided technical support, updated website content, and assisted with creative content
+                            (video editing, poster design).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="reveal mb-8">
+                <h3 class="text-lg font-semibold text-accent-teal mb-5 flex items-center gap-2">🌐 Industry Exposure &
+                    Continuous Learning</h3>
+                <div class="timeline-item pb-4 ml-2">
+                    <p class="text-text-secondary text-sm">Attended the <span
+                            class="text-white font-semibold">CelcomDigi AI Experience Centre (AiX)</span> tour.</p>
+                </div>
+                <div class="timeline-item pb-4 ml-2">
+                    <p class="text-text-secondary text-sm">Participated in the <span
+                            class="text-white font-semibold">Build with AI 2025</span> developer event.</p>
+                </div>
+                <div class="timeline-item pb-4 ml-2">
+                    <p class="text-text-secondary text-sm">Attended the <span
+                            class="text-white font-semibold">Enlightening Docker workshop</span> to explore
+                        containerization.</p>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <h3 class="text-lg font-semibold text-accent-purple mb-5 flex items-center gap-2">🤝 Community
+                    Engagement & Initiative</h3>
+                <div class="timeline-item pb-4 ml-2">
+                    <h4 class="text-white font-bold">Media Designing & Merchandise Team Member</h4>
+                    <p class="text-accent-purple text-sm font-medium mb-1">UTeM Artificial Intelligence Club</p>
+                    <ul class="text-text-secondary text-sm space-y-1.5 list-disc list-inside">
+                        <li>Proactively managed the club's visual branding and assisted with industry-collaborated
+                            events.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT / FOOTER (UNCHANGED) ==================== -->
+    <section id="contact" class="py-20 md:py-28 px-4 bg-[#06060a]">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="reveal">
+                <p class="text-accent-cyan font-mono text-sm tracking-widest uppercase mb-2">Get In Touch</p>
+                <div class="section-divider mx-auto"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Let's Connect</h2>
+                <p class="text-text-secondary text-base md:text-lg mb-12 max-w-xl mx-auto">I'd love to discuss how I can
+                    contribute to your AI team.</p>
+            </div>
+
+            <div class="reveal flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+                <a href="mailto:sarveshram2002@gmail.com"
+                    class="flex flex-col items-center gap-2 text-text-secondary hover:text-accent-cyan transition-colors group">
+                    <div
+                        class="w-14 h-14 rounded-full bg-bg-card border border-border-subtle flex items-center justify-center group-hover:border-accent-cyan group-hover:shadow-lg group-hover:shadow-accent-cyan/20 transition-all duration-300">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <path d="M22 4L12 13 2 4" />
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium">sarveshram2002@gmail.com</span>
+                </a>
+                <a href="tel:+60123925477"
+                    class="flex flex-col items-center gap-2 text-text-secondary hover:text-accent-cyan transition-colors group">
+                    <div
+                        class="w-14 h-14 rounded-full bg-bg-card border border-border-subtle flex items-center justify-center group-hover:border-accent-cyan group-hover:shadow-lg group-hover:shadow-accent-cyan/20 transition-all duration-300">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="5" y="2" width="14" height="20" rx="2" />
+                            <line x1="12" y1="18" x2="12" y2="18.01" />
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium">+60 12-392 5477</span>
+                </a>
+                <a href="https://linkedin.com/in/sarveshram" target="_blank" rel="noopener noreferrer"
+                    class="flex flex-col items-center gap-2 text-text-secondary hover:text-accent-cyan transition-colors group">
+                    <div
+                        class="w-14 h-14 rounded-full bg-bg-card border border-border-subtle flex items-center justify-center group-hover:border-accent-cyan group-hover:shadow-lg group-hover:shadow-accent-cyan/20 transition-all duration-300">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447..." />
+                        </svg>
+                    </div>
+                    <span class="text-sm font-medium">LinkedIn Profile</span>
+                </a>
+            </div>
+            <div class="mt-16 pt-8 border-t border-border-subtle text-center text-text-secondary text-xs">
+                <p>&copy; 2025 Sarvesh Ram. Built with passion &amp; precision.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox & Back to Top (unchanged) -->
+    <div id="lightbox" class="lightbox-overlay">
+        <button id="lightbox-close" class="lightbox-close">&times;</button>
+        <img id="lightbox-img" src="" alt="Enlarged view" />
+    </div>
+    <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
